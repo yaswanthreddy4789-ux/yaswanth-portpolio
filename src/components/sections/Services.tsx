@@ -1,0 +1,37 @@
+"use client";
+
+import { ArrowUpRight } from "lucide-react";
+import { services } from "@/config/content";
+import { SectionHeading } from "@/components/ui/SectionHeading";
+import { Stagger, StaggerItem } from "@/components/ui/Reveal";
+import { Icon } from "@/components/ui/icons";
+
+export const PREFILL_EVENT = "prefill-project-type";
+
+export function Services() {
+  return (
+    <section id="services" aria-labelledby="services-title" className="mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-36">
+      <SectionHeading id="services-title" index="04" eyebrow="Services" lines={["What I Can", "Build for You."]} accentLine={1} />
+
+      <Stagger as="ul" className="grid gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
+        {services.map((s) => (
+          <StaggerItem as="li" key={s.id} className="bg-bg">
+            <a
+              href="#contact"
+              onClick={() => window.dispatchEvent(new CustomEvent(PREFILL_EVENT, { detail: s.title }))}
+              className="group relative flex h-full flex-col p-7 transition-colors duration-300 hover:bg-surface2"
+            >
+              <Icon name={s.icon} className="size-6 text-accent transition-transform duration-300 group-hover:-translate-y-1 group-hover:scale-110" />
+              <h3 className="mt-8 font-display text-xl font-semibold">{s.title}</h3>
+              <p className="mt-3 flex-1 text-sm leading-relaxed text-muted">{s.text}</p>
+              <span className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-ink transition-colors group-hover:text-accent">
+                Discuss this <ArrowUpRight className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" />
+                <span className="sr-only">— {s.title}</span>
+              </span>
+            </a>
+          </StaggerItem>
+        ))}
+      </Stagger>
+    </section>
+  );
+}
