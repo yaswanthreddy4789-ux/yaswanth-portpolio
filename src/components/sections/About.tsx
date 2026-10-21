@@ -13,7 +13,7 @@ export function About() {
   const current = about.blocks.find((b) => b.id === active) ?? about.blocks[0];
 
   return (
-    <section id="about" aria-labelledby="about-title" className="mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-36">
+    <section id="about" aria-labelledby="about-title" className="mx-auto max-w-7xl px-5 py-14 md:px-8 md:py-20">
       <SectionHeading id="about-title" index="01" eyebrow="About" lines={about.heading} accentLine={1} intro={about.intro} />
 
       <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:gap-14">

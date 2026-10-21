@@ -12,7 +12,7 @@ export function Process() {
   const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 30, mass: 0.4 });
 
   return (
-    <section id="process" aria-labelledby="process-title" className="mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-36">
+    <section id="process" aria-labelledby="process-title" className="mx-auto max-w-7xl px-5 py-14 md:px-8 md:py-20">
       <SectionHeading id="process-title" index="05" eyebrow="Development Process" lines={["From Idea", "to Launch."]} accentLine={1} />
 
       <ol ref={ref} className="relative mx-auto max-w-5xl">

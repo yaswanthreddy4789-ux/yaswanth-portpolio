@@ -15,7 +15,7 @@ export function Expertise() {
   const linked = sel ? projects.filter((p) => p.skills.includes(sel.id)) : [];
 
   return (
-    <section id="expertise" aria-labelledby="expertise-title" className="mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-36">
+    <section id="expertise" aria-labelledby="expertise-title" className="mx-auto max-w-7xl px-5 py-14 md:px-8 md:py-20">
       <SectionHeading
         id="expertise-title"
         index="02"

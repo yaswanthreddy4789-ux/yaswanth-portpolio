@@ -11,7 +11,7 @@ import { Icon } from "@/components/ui/icons";
 
 export function Services() {
   return (
-    <section id="services" aria-labelledby="services-title" className="mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-36">
+    <section id="services" aria-labelledby="services-title" className="mx-auto max-w-7xl px-5 py-14 md:px-8 md:py-20">
       <SectionHeading id="services-title" index="04" eyebrow="Services" lines={["What I Can", "Build for You."]} accentLine={1} />
 
       <Stagger as="ul" className="grid gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">

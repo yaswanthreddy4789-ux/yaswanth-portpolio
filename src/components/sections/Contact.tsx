@@ -80,7 +80,7 @@ export function Contact() {
   const aria = (k: keyof ContactInput) => ({ "aria-invalid": !!errors[k], "aria-describedby": errors[k] ? `e-${k}` : undefined });
 
   return (
-    <section id="contact" aria-labelledby="contact-title" className="mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-36">
+    <section id="contact" aria-labelledby="contact-title" className="mx-auto max-w-7xl px-5 py-14 md:px-8 md:py-20">
       <div className="grid gap-14 lg:grid-cols-[0.9fr_1.1fr]">
         <div>
           <Reveal>

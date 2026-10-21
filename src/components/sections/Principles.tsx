@@ -4,7 +4,7 @@ import { Stagger, StaggerItem } from "@/components/ui/Reveal";
 
 export function Principles() {
   return (
-    <section id="principles" aria-labelledby="principles-title" className="mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-36">
+    <section id="principles" aria-labelledby="principles-title" className="mx-auto max-w-7xl px-5 py-14 md:px-8 md:py-20">
       <SectionHeading id="principles-title" index="07" eyebrow="Why Work With Me" lines={["How I", "Work."]} accentLine={1} intro="Working principles I hold myself to on every project." />
 
       <Stagger as="ul" className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">

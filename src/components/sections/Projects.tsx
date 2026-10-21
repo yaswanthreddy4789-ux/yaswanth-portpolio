@@ -18,11 +18,11 @@ export function Projects() {
   const list = filter === "All" ? projects : projects.filter((p) => p.category === filter);
 
   return (
-    <section id="projects" aria-labelledby="projects-title" className="mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-36">
+    <section id="projects" aria-labelledby="projects-title" className="mx-auto max-w-7xl px-5 py-14 md:px-8 md:py-20">
       <SectionHeading id="projects-title" index="03" eyebrow="Featured Projects" lines={["Selected Work.", "Real Solutions."]} accentLine={1} />
 
       <Reveal>
-        <div role="group" aria-label="Filter projects by category" className="mb-12 flex flex-wrap gap-2">
+        <div role="group" aria-label="Filter projects by category" className="mb-8 flex flex-wrap gap-2">
           {filters.map((f) => (
             <button
               key={f}
@@ -43,7 +43,7 @@ export function Projects() {
         {list.length} {list.length === 1 ? "project" : "projects"} shown
       </p>
 
-      <motion.div layout className="grid gap-x-8 gap-y-16 md:grid-cols-2">
+      <motion.div layout className="grid gap-x-8 gap-y-12 md:grid-cols-2">
         <AnimatePresence mode="popLayout">
           {list.map((p, i) => (
             <ProjectCard key={p.slug} project={p} index={i} onStudy={() => setStudy(p)} />
@@ -67,7 +67,7 @@ function ProjectCard({ project: p, index, onStudy }: { project: Project; index: 
       exit={{ opacity: 0, scale: 0.96 }}
       viewport={{ once: true, margin: "-60px" }}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      className={`group ${index % 2 === 1 ? "md:mt-20" : ""}`}
+      className={`group ${index % 2 === 1 ? "md:mt-14" : ""}`}
     >
       {/* clip-path mask reveal */}
       <motion.div
