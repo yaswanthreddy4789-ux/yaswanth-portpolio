@@ -11,10 +11,10 @@ const rawUrl =
     : "http://localhost:3000");
 
 export const site = {
-  /** PLACEHOLDER: your full name */
-  name: "Your Name",
+  /** Your full name */
+  name: "Yaswanth Amasa",
   /** PLACEHOLDER: shown in the preloader and logo (2 letters) */
-  initials: "YN",
+  initials: "YA",
   /** PLACEHOLDER: your professional title */
   title: "Full-Stack WordPress Developer",
   /** Optional: path to a profile photo in /public (e.g. "/me.jpg"). Leave "" to hide. */
@@ -53,7 +53,10 @@ export const site = {
     heading: "Have a Project in Mind?",
     text: "Let's turn your idea into a website that looks great, works smoothly, and helps your business move forward.",
     /** PLACEHOLDER: your real email. example.com is a reserved, harmless domain. */
-    email: "hello@example.com",
+    email: "yaswanthreddyamasa4789@gmail.com",
+    /** Display format of your phone number */
+    phone: "+91 89196 74214",
+    phoneHref: "tel:+918919674214",
     /** Budget options shown in the form. Edit freely; leave [] to hide the field. */
     budgets: ["Under $1,000", "$1,000 – $3,000", "$3,000 – $7,500", "$7,500+", "Not sure yet"],
   },
@@ -65,7 +68,7 @@ export const site = {
   socials: [
     { label: "LinkedIn", href: "" },
     { label: "GitHub", href: "" },
-    { label: "WhatsApp", href: "" /* e.g. https://wa.me/15551234567 */ },
+    { label: "WhatsApp", href: "https://wa.me/918919674214" },
   ],
 
   nav: [

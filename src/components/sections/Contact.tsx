@@ -2,12 +2,11 @@
 
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { ArrowUpRight, CheckCircle2, Loader2, Mail } from "lucide-react";
+import { ArrowUpRight, CheckCircle2, Loader2, Mail, Phone } from "lucide-react";
 import { emailHref, site, visibleSocials } from "@/config/site";
 import { services } from "@/config/content";
 import { validateContact, type ContactInput, type FieldErrors } from "@/lib/contact";
 import { MaskLines, Reveal } from "@/components/ui/Reveal";
-import { PREFILL_EVENT } from "./Services";
 
 const empty: ContactInput = { name: "", email: "", projectType: "", budget: "", message: "" };
 const projectTypes = [...services.map((s) => s.title), "Something else"];
@@ -24,12 +23,6 @@ export function Contact() {
 
   useEffect(() => {
     openedAt.current = Date.now();
-    const onPrefill = (e: Event) => {
-      const t = (e as CustomEvent<string>).detail;
-      setValues((v) => ({ ...v, projectType: t }));
-    };
-    window.addEventListener(PREFILL_EVENT, onPrefill);
-    return () => window.removeEventListener(PREFILL_EVENT, onPrefill);
   }, []);
 
   const set = (k: keyof ContactInput) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -107,6 +100,12 @@ export function Contact() {
                 <a href={emailHref} className="group inline-flex items-center gap-3 text-lg hover:text-accent">
                   <Mail className="size-5 text-accent" aria-hidden="true" />
                   {site.contact.email}
+                </a>
+              </li>
+              <li>
+                <a href={site.contact.phoneHref} className="inline-flex items-center gap-3 text-lg hover:text-accent">
+                  <Phone className="size-5 text-accent" aria-hidden="true" />
+                  {site.contact.phone}
                 </a>
               </li>
               {visibleSocials.map((s) => (

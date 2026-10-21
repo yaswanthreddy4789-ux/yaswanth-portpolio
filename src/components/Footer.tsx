@@ -7,7 +7,7 @@ import { emailHref, site, visibleSocials } from "@/config/site";
 
 const subscribeNoop = () => () => {};
 
-export function Footer() {
+export function Footer({ base = "" }: { base?: string }) {
   // Server snapshot is a fixed fallback; the client swaps in the live year after hydration.
   const year = useSyncExternalStore(subscribeNoop, () => new Date().getFullYear(), () => 2026);
 
@@ -21,13 +21,13 @@ export function Footer() {
               <span className="text-accent">.</span>
             </p>
             <p className="mt-3 max-w-sm text-muted">{site.tagline}</p>
-            <a href={emailHref} className="mt-5 inline-block text-sm hover:text-accent">{site.contact.email}</a>
+            <div className="mt-5 grid gap-1 text-sm"><a href={emailHref} className="hover:text-accent">{site.contact.email}</a><a href={site.contact.phoneHref} className="hover:text-accent">{site.contact.phone}</a></div>
           </div>
           <nav aria-label="Footer">
             <p className="mb-4 font-mono text-xs uppercase tracking-widest text-muted">Navigate</p>
             <ul className="grid gap-2 text-sm">
               {site.nav.map((n) => (
-                <li key={n.href}><a href={n.href} className="text-ink/90 hover:text-accent">{n.label}</a></li>
+                <li key={n.href}><a href={`${base}${n.href}`} className="text-ink/90 hover:text-accent">{n.label}</a></li>
               ))}
             </ul>
           </nav>
