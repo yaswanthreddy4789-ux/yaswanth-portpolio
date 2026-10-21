@@ -12,6 +12,7 @@ import { Toolkit } from "@/components/sections/Toolkit";
 import { Principles } from "@/components/sections/Principles";
 import { Testimonials } from "@/components/sections/Testimonials";
 import { Contact } from "@/components/sections/Contact";
+import { Marquee } from "@/components/ui/Marquee";
 import { Divider } from "@/components/ui/SectionHeading";
 
 export default function Home() {
@@ -31,7 +32,7 @@ export default function Home() {
       <Navbar />
       <main id="main">
         <Hero />
-        <Divider />
+        <Marquee />
         <About />
         <Divider />
         <Expertise />

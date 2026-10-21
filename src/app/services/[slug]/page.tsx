@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ArrowUpRight, Check } from "lucide-react";
+import { ArrowUpRight, Check } from "lucide-react";
 import { site } from "@/config/site";
 import { services } from "@/config/content";
 import { getServicePage, servicePages } from "@/config/service-pages";
+import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Icon } from "@/components/ui/icons";
 
@@ -54,19 +55,9 @@ export default async function ServicePageRoute({ params }: Props) {
   return (
     <div id="home">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
-      <header className="border-b border-line">
-        <nav aria-label="Primary" className="mx-auto flex max-w-5xl items-center justify-between px-5 py-5 md:px-8">
-          <Link href="/" className="font-display text-xl font-semibold" aria-label={`${site.name} — home`}>
-            {site.initials}
-            <span className="text-accent">.</span>
-          </Link>
-          <Link href="/#services" className="inline-flex items-center gap-2 text-sm text-muted hover:text-accent">
-            <ArrowLeft className="size-4" aria-hidden="true" /> All services
-          </Link>
-        </nav>
-      </header>
+      <Navbar base="/" />
 
-      <main id="main" className="mx-auto max-w-5xl px-5 py-16 md:px-8 md:py-24">
+      <main id="main" className="mx-auto max-w-5xl px-5 pb-16 pt-36 md:px-8 md:pb-24">
         <p className="mb-5 flex items-center gap-3 font-mono text-xs uppercase tracking-[0.2em] text-muted">
           <Icon name={svc.icon} className="size-4 text-accent" /> {svc.title}
         </p>

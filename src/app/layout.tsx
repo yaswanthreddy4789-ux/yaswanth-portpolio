@@ -3,6 +3,7 @@ import type { CSSProperties } from "react";
 import { Geist, Geist_Mono, Space_Grotesk } from "next/font/google";
 import { site } from "@/config/site";
 import { Providers } from "@/components/Providers";
+import { CursorGlow, ScrollProgress } from "@/components/ui/Interactions";
 import "./globals.css";
 
 const body = Geist({ variable: "--font-body", subsets: ["latin"], display: "swap" });
@@ -59,7 +60,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         >
           Skip to content
         </a>
-        <Providers>{children}</Providers>
+        <Providers>
+          <ScrollProgress />
+          <CursorGlow />
+          {children}
+        </Providers>
       </body>
     </html>
   );

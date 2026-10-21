@@ -32,6 +32,12 @@ export function Services() {
           </StaggerItem>
         ))}
       </Stagger>
+
+      <div className="mt-10">
+        <Link href="/services" className="inline-flex items-center gap-2 rounded-full border border-line px-6 py-3 text-sm font-semibold transition-colors hover:border-accent hover:text-accent">
+          View all service pages <ArrowUpRight className="size-4" aria-hidden="true" />
+        </Link>
+      </div>
     </section>
   );
 }

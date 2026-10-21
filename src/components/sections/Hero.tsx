@@ -5,6 +5,7 @@ import { ArrowDown, ArrowUpRight } from "lucide-react";
 import { site } from "@/config/site";
 import { BrowserMockup } from "@/components/ui/BrowserMockup";
 import { useReady } from "@/components/Providers";
+import { Magnetic } from "@/components/ui/Interactions";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -84,19 +85,22 @@ export function Hero() {
           </motion.p>
 
           <motion.div variants={fadeUp} className="mt-9 flex flex-wrap gap-3">
-            <a
+            <Magnetic>
+              <a
               href={h.primaryCta.href}
               className="group inline-flex items-center gap-2 rounded-full bg-accent px-7 py-3.5 text-sm font-semibold text-black transition-transform hover:scale-[1.04] active:scale-95"
             >
               {h.primaryCta.label}
               <ArrowUpRight className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
             </a>
-            <a
+            </Magnetic>            <Magnetic>
+              <a
               href={h.secondaryCta.href}
               className="inline-flex items-center gap-2 rounded-full border border-line px-7 py-3.5 text-sm font-semibold transition-colors hover:border-accent hover:text-accent"
             >
               {h.secondaryCta.label}
             </a>
+            </Magnetic>
           </motion.div>
         </motion.div>
 

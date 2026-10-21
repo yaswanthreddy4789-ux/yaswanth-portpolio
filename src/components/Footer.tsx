@@ -4,6 +4,8 @@ import { useSyncExternalStore } from "react";
 import { ArrowUp } from "lucide-react";
 import { motion } from "motion/react";
 import { emailHref, site, visibleSocials } from "@/config/site";
+import { services } from "@/config/content";
+import { servicePages } from "@/config/service-pages";
 
 const subscribeNoop = () => () => {};
 
@@ -14,7 +16,7 @@ export function Footer({ base = "" }: { base?: string }) {
   return (
     <footer className="relative overflow-hidden border-t border-line">
       <div className="mx-auto max-w-7xl px-5 pb-10 pt-20 md:px-8">
-        <div className="grid gap-12 md:grid-cols-[1.4fr_1fr_1fr]">
+        <div className="grid gap-12 md:grid-cols-[1.4fr_1fr_1.2fr_1fr]">
           <div>
             <p className="font-display text-3xl font-semibold">
               {site.name}
@@ -28,6 +30,14 @@ export function Footer({ base = "" }: { base?: string }) {
             <ul className="grid gap-2 text-sm">
               {site.nav.map((n) => (
                 <li key={n.href}><a href={`${base}${n.href}`} className="text-ink/90 hover:text-accent">{n.label}</a></li>
+              ))}
+            </ul>
+          </nav>
+          <nav aria-label="Services">
+            <p className="mb-4 font-mono text-xs uppercase tracking-widest text-muted">Services</p>
+            <ul className="grid gap-2 text-sm">
+              {servicePages.map((p) => (
+                <li key={p.id}><a href={`/services/${p.id}`} className="text-ink/90 hover:text-accent">{services.find((s) => s.id === p.id)?.title}</a></li>
               ))}
             </ul>
           </nav>

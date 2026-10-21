@@ -7,6 +7,7 @@ import { projectCategories, projects, type Project, type ProjectCategory } from 
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
 import { BrowserMockup } from "@/components/ui/BrowserMockup";
+import { Tilt } from "@/components/ui/Interactions";
 
 type Filter = "All" | ProjectCategory;
 const filters: Filter[] = ["All", ...projectCategories];
@@ -76,14 +77,14 @@ function ProjectCard({ project: p, index, onStudy }: { project: Project; index: 
         transition={{ duration: 1, ease: [0.76, 0, 0.24, 1] }}
         className="overflow-hidden rounded-xl"
       >
-        <div className="transition-transform duration-700 ease-out group-hover:scale-[1.04]">
+        <Tilt className="transition-transform duration-700 ease-out group-hover:scale-[1.03]">
           <BrowserMockup
             variant={p.mockup}
             image={p.image}
             alt={p.imageAlt ?? `${p.name} website screenshot`}
             label={p.url ? p.url.replace(/^https?:\/\//, "") : "yourproject.com"}
           />
-        </div>
+        </Tilt>
       </motion.div>
 
       <div className="mt-6">
