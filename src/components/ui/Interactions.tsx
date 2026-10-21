@@ -55,7 +55,7 @@ export function Magnetic({ children, strength = 0.3, className }: { children: Re
     <motion.div
       ref={ref}
       style={{ x, y }}
-      className={`inline-block ${className ?? ""}`}
+      className={className}
       onPointerMove={(e) => {
         if (e.pointerType !== "mouse" || !ref.current) return;
         const r = ref.current.getBoundingClientRect();

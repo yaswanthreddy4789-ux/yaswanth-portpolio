@@ -5,6 +5,12 @@
 export type AboutBlock = { id: string; label: string; title: string; body: string; placeholder?: boolean };
 
 export const about = {
+  /** Real figures from your resume. Edit or delete anything you want to change. */
+  stats: [
+    { value: "3.6+", label: "Years of experience" },
+    { value: "300+", label: "Projects delivered" },
+    { value: "5", label: "Platforms: WordPress, Shopify, Wix, Squarespace, Unbounce" },
+  ],
   heading: ["More Than", "Just a Developer."],
   intro:
     "I'm a versatile web developer who combines technical implementation, design awareness, and business-focused thinking, working across WordPress, Shopify, Wix, WPBakery, and custom website development.",
@@ -13,8 +19,7 @@ export const about = {
       id: "background",
       label: "Background",
       title: "Professional background",
-      body: "Placeholder: add a short, true summary of your experience, how you got into web development, and the kinds of projects you have worked on.",
-      placeholder: true,
+      body: "WordPress and web developer with 3.6+ years of experience building, customizing and maintaining client websites across WordPress, Shopify, Wix, Squarespace and Unbounce. Web Developer at Syndell Technologies since May 2023, owning client communication from requirements to delivery and ongoing support.",
     },
     {
       id: "philosophy",
@@ -26,14 +31,13 @@ export const about = {
       id: "businesses",
       label: "Who I help",
       title: "The businesses I help",
-      body: "Placeholder: describe your typical clients, such as small businesses, online stores, agencies, or startups, in your own words.",
-      placeholder: true,
+      body: "Clients across many industries: a B2B heavy-equipment parts distributor, call-centre services, telehealth practices, e-bike and skincare brands, a tea merchant, a food brand and marketing agencies, in markets including the US, Australia, the UK and Europe.",
     },
     {
       id: "strengths",
       label: "Strengths",
       title: "Technical strengths",
-      body: "Hands-on delivery across several platforms, from CMS customization and ecommerce to hand-coded frontend and backend work, so the platform can fit the project instead of the other way around.",
+      body: "Custom WordPress plugin and theme development, WooCommerce at catalogue scale, Shopify Liquid and Shopify Plus, API and marketing-tool integrations (Klaviyo, SendGrid, Yotpo, GA4), WCAG 2.1 AA accessibility audits, JSON-LD schema and technical SEO, plus malware investigation and cleanup.",
     },
     {
       id: "approach",

@@ -13,12 +13,15 @@ const rawUrl =
 export const site = {
   /** Your full name */
   name: "Yaswanth Amasa",
-  /** PLACEHOLDER: shown in the preloader and logo (2 letters) */
+  /** Shown in the preloader and logo (2 letters) */
   initials: "YA",
-  /** PLACEHOLDER: your professional title */
+  /** Your professional title */
   title: "Full-Stack WordPress Developer",
-  /** Optional: path to a profile photo in /public (e.g. "/me.jpg"). Leave "" to hide. */
-  photo: "",
+  /** Profile photo in /public. Change it with: npm run photo -- "C:\path\to\image.jpg"  (leave "" to hide) */
+  photo: "/photo.jpg",
+  photoAlt: "Portrait of Yaswanth Amasa",
+  /** Shown under the photo */
+  location: "Ahmedabad, India",
 
   /** Canonical site URL. Set NEXT_PUBLIC_SITE_URL in Vercel once you have a domain. */
   url: rawUrl.replace(/\/$/, ""),

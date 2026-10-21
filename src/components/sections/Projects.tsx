@@ -10,12 +10,15 @@ import { BrowserMockup } from "@/components/ui/BrowserMockup";
 import { Tilt } from "@/components/ui/Interactions";
 
 type Filter = "All" | ProjectCategory;
-const filters: Filter[] = ["All", ...projectCategories];
+const filters: Filter[] = ["All", ...projectCategories.filter((c) => projects.some((p) => p.category === c))];
+const INITIAL = 6;
 
 export function Projects() {
   const [filter, setFilter] = useState<Filter>("All");
   const [study, setStudy] = useState<Project | null>(null);
+  const [showAll, setShowAll] = useState(false);
   const list = filter === "All" ? projects : projects.filter((p) => p.category === filter);
+  const visible = filter === "All" && !showAll ? list.slice(0, INITIAL) : list;
 
   return (
     <section id="projects" aria-labelledby="projects-title" className="mx-auto max-w-7xl px-5 py-14 md:px-8 md:py-20">
@@ -40,16 +43,28 @@ export function Projects() {
       </Reveal>
 
       <p className="sr-only" aria-live="polite">
-        {list.length} {list.length === 1 ? "project" : "projects"} shown
+        {visible.length} of {list.length} {list.length === 1 ? "project" : "projects"} shown
       </p>
 
       <motion.div layout className="grid gap-x-8 gap-y-12 md:grid-cols-2">
         <AnimatePresence mode="popLayout">
-          {list.map((p, i) => (
+          {visible.map((p, i) => (
             <ProjectCard key={p.slug} project={p} index={i} onStudy={() => setStudy(p)} />
           ))}
         </AnimatePresence>
       </motion.div>
+
+      {filter === "All" && !showAll && list.length > INITIAL && (
+        <div className="mt-14 text-center">
+          <button
+            type="button"
+            onClick={() => setShowAll(true)}
+            className="rounded-full border border-line px-7 py-3.5 text-sm font-semibold transition-colors hover:border-accent hover:text-accent"
+          >
+            Show all {list.length} projects
+          </button>
+        </div>
+      )}
 
       {list.length === 0 && <p className="rounded-2xl border border-dashed border-line p-10 text-center text-muted">No projects in this category yet.</p>}
 

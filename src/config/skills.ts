@@ -102,23 +102,22 @@ export type ToolGroup = { group: string; items: { name: string; logo?: string }[
 export const toolkit: ToolGroup[] = [
   {
     group: "CMS & Commerce",
-    items: [{ name: "WordPress" }, { name: "WooCommerce" }, { name: "Shopify" }, { name: "Wix" }, { name: "WPBakery" }],
+    items: [{ name: "WordPress" }, { name: "WooCommerce" }, { name: "Shopify" }, { name: "Shopify Plus" }, { name: "Wix (Velo)" }, { name: "Squarespace" }, { name: "Webflow" }, { name: "Unbounce" }, { name: "WPBakery" }, { name: "Elementor Pro" }],
   },
   {
-    group: "Frontend",
-    items: [{ name: "HTML" }, { name: "CSS" }, { name: "JavaScript" }, { name: "React" }, { name: "Next.js" }, { name: "Tailwind CSS" }],
+    group: "Languages & Frontend",
+    items: [{ name: "PHP" }, { name: "JavaScript" }, { name: "HTML" }, { name: "CSS" }, { name: "Shopify Liquid" }, { name: "React" }, { name: "Next.js" }, { name: "Tailwind CSS" }, { name: "Laravel" }],
   },
   {
-    group: "Backend & Data",
-    items: [{ name: "PHP" }, { name: "REST APIs" }],
+    group: "Integrations & Marketing Tech",
+    items: [{ name: "REST APIs" }, { name: "Klaviyo" }, { name: "Twilio SendGrid" }, { name: "Yotpo" }, { name: "Gravity Forms" }, { name: "Google Analytics 4" }, { name: "Google Tag Manager" }, { name: "Meta Pixel" }],
   },
   {
-    group: "Workflow",
-    items: [
-      { name: "Git" },
-      { name: "GitHub" },
-      { name: "Responsive Web Design" },
-      { name: "Website Optimization" },
-    ],
+    group: "Quality, SEO & Security",
+    items: [{ name: "WCAG 2.1 AA audits" }, { name: "JSON-LD schema" }, { name: "Technical SEO" }, { name: "Yoast SEO" }, { name: "Malware cleanup" }],
+  },
+  {
+    group: "Workflow & Hosting",
+    items: [{ name: "Git" }, { name: "GitHub" }, { name: "SSH" }, { name: "WP-CLI" }, { name: "cPanel" }, { name: "Figma to code" }, { name: "Claude Code" }, { name: "Responsive Web Design" }],
   },
 ];
