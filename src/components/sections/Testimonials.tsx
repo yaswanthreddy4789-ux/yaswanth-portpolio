@@ -7,7 +7,7 @@ export function Testimonials() {
   if (!testimonials.length && !achievements.length) return null;
   return (
     <section id="testimonials" aria-labelledby="testimonials-title" className="mx-auto max-w-7xl px-5 py-14 md:px-8 md:py-20">
-      <SectionHeading id="testimonials-title" index="08" eyebrow="Client Feedback" lines={["Words From", "Clients."]} accentLine={1} />
+      <SectionHeading id="testimonials-title" index="09" eyebrow="Client Feedback" lines={["Words From", "Clients."]} accentLine={1} />
 
       {testimonials.length > 0 && (
         <Stagger className="grid gap-4 md:grid-cols-2">

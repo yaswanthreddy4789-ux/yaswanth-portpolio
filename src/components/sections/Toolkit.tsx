@@ -11,7 +11,7 @@ function monogram(name: string) {
 export function Toolkit() {
   return (
     <section id="toolkit" aria-labelledby="toolkit-title" className="mx-auto max-w-7xl px-5 py-14 md:px-8 md:py-20">
-      <SectionHeading id="toolkit-title" index="06" eyebrow="Technology Toolkit" lines={["The Tools", "I Work With."]} accentLine={1} />
+      <SectionHeading id="toolkit-title" index="07" eyebrow="Technology Toolkit" lines={["The Tools", "I Work With."]} accentLine={1} />
 
       <div className="grid gap-10">
         {toolkit.map((g) => (

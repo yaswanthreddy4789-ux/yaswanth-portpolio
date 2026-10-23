@@ -16,12 +16,18 @@ export function About() {
   const current = about.blocks.find((b) => b.id === active) ?? about.blocks[0];
 
   return (
-    <section id="about" aria-labelledby="about-title" className="mx-auto max-w-7xl px-5 py-14 md:px-8 md:py-20">
+    <section id="about" aria-labelledby="about-title" className="mx-auto max-w-7xl overflow-x-clip px-5 py-14 md:px-8 md:py-20">
       <SectionHeading id="about-title" index="01" eyebrow="About" lines={about.heading} accentLine={1} intro={about.intro} />
 
       <div className={`grid gap-10 ${site.photo ? "lg:grid-cols-[0.62fr_1.38fr] lg:gap-14" : ""}`}>
         {site.photo && (
-          <Reveal className="min-w-0">
+          <motion.div
+            className="min-w-0"
+            initial={{ opacity: 0, x: -90, rotate: -5 }}
+            whileInView={{ opacity: 1, x: 0, rotate: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+          >
             <Tilt max={4} className="mx-auto max-w-sm lg:max-w-none">
               <figure className="relative">
                 <div aria-hidden="true" className="absolute -inset-3 -z-10 rounded-[1.75rem] border border-accent/30" />
@@ -44,7 +50,7 @@ export function About() {
                 </div>
               </figure>
             </Tilt>
-          </Reveal>
+          </motion.div>
         )}
 
         <div className="min-w-0">

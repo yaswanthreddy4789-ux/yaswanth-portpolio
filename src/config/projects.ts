@@ -42,8 +42,6 @@ export type Project = {
   imageAlt?: string;
   /** Live URL. Omit if there isn't one — no button is shown. */
   url?: string;
-  /** Optional case study shown in a dialog */
-  caseStudy?: { summary: string; points?: string[] };
   /** ONLY verified, real results you can stand behind */
   results?: string[];
   /** Skill ids from skills.ts used to link this project to the Expertise cards */

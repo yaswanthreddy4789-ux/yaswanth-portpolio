@@ -94,3 +94,32 @@ export const testimonials: Testimonial[] = [];
 /** ACHIEVEMENTS / CERTIFICATIONS — real ones only. Empty = section hidden. */
 export type Achievement = { title: string; issuer?: string; year?: string };
 export const achievements: Achievement[] = [];
+
+/** EXPERIENCE & EDUCATION — taken from your resume. Edit freely. */
+export const experience = {
+  roles: [
+    {
+      title: "Web Developer",
+      company: "Syndell Technologies",
+      place: "Ahmedabad, India",
+      period: "May 2023 – Present",
+      points: [
+        "Build, customize and maintain WordPress websites end to end, from theme and UI implementation to custom functionality, database work and performance.",
+        "Develop custom WordPress plugins and themes to client requirements, extending core functionality beyond off-the-shelf solutions.",
+        "Engineer Shopify and Shopify Plus solutions, including Liquid sections, custom cart and checkout logic, and serverless API integrations.",
+        "Manage large WooCommerce catalogs with automated, API-driven product sync and data-quality checks.",
+        "Audit and remediate websites to WCAG 2.1 AA on WordPress, Shopify, Squarespace and Unbounce.",
+        "Implement JSON-LD schema and bulk SEO fixes at scale, including code-driven fixes on Wix through Velo.",
+        "Investigate WordPress malware incidents, remove malicious plugins and audit third-party plugin code for tampering.",
+      ],
+    },
+    {
+      title: "Backend Developer, ColorHunt (Laravel project)",
+      company: "Syndell Technologies",
+      place: "",
+      period: "",
+      points: ["Contributed server-side logic and application functionality to ColorHunt, a Laravel-based web application."],
+    },
+  ],
+  education: [{ title: "Bachelor of Science (B.Sc.) in Computers", detail: "Graduated 2022" }],
+};

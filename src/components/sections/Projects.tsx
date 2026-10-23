@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion } from "motion/react";
-import { ArrowUpRight, BookOpen, X } from "lucide-react";
+import { useRef, useState } from "react";
+import Link from "next/link";
+import { AnimatePresence, motion, useScroll, useTransform } from "motion/react";
+import { ArrowUpRight, BookOpen } from "lucide-react";
 import { projectCategories, projects, type Project, type ProjectCategory } from "@/config/projects";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
@@ -13,16 +14,25 @@ type Filter = "All" | ProjectCategory;
 const filters: Filter[] = ["All", ...projectCategories.filter((c) => projects.some((p) => p.category === c))];
 const INITIAL = 6;
 
+/** Different entrance for neighbouring cards so the grid feels choreographed, not repeated. */
+const entrances = [
+  { x: -90, opacity: 0 }, // slide in from the left
+  { x: 90, opacity: 0 }, // slide in from the right
+  { x: -60, rotate: -7, opacity: 0 }, // gentle roll in
+  { scale: 0.86, opacity: 0 }, // zoom in
+  { y: 70, opacity: 0 }, // rise
+  { x: 60, rotate: 6, opacity: 0 }, // gentle roll from the right
+] as const;
+
 export function Projects() {
   const [filter, setFilter] = useState<Filter>("All");
-  const [study, setStudy] = useState<Project | null>(null);
   const [showAll, setShowAll] = useState(false);
   const list = filter === "All" ? projects : projects.filter((p) => p.category === filter);
   const visible = filter === "All" && !showAll ? list.slice(0, INITIAL) : list;
 
   return (
-    <section id="projects" aria-labelledby="projects-title" className="mx-auto max-w-7xl px-5 py-14 md:px-8 md:py-20">
-      <SectionHeading id="projects-title" index="03" eyebrow="Featured Projects" lines={["Selected Work.", "Real Solutions."]} accentLine={1} />
+    <section id="projects" aria-labelledby="projects-title" className="mx-auto max-w-7xl overflow-x-clip px-5 py-14 md:px-8 md:py-20">
+      <SectionHeading id="projects-title" index="04" eyebrow="Featured Projects" lines={["Selected Work.", "Real Solutions."]} accentLine={1} />
 
       <Reveal>
         <div role="group" aria-label="Filter projects by category" className="mb-8 flex flex-wrap gap-2">
@@ -49,7 +59,7 @@ export function Projects() {
       <motion.div layout className="grid gap-x-8 gap-y-12 md:grid-cols-2">
         <AnimatePresence mode="popLayout">
           {visible.map((p, i) => (
-            <ProjectCard key={p.slug} project={p} index={i} onStudy={() => setStudy(p)} />
+            <ProjectCard key={p.slug} project={p} index={i} />
           ))}
         </AnimatePresence>
       </motion.div>
@@ -67,39 +77,47 @@ export function Projects() {
       )}
 
       {list.length === 0 && <p className="rounded-2xl border border-dashed border-line p-10 text-center text-muted">No projects in this category yet.</p>}
-
-      <CaseStudy project={study} onClose={() => setStudy(null)} />
     </section>
   );
 }
 
-function ProjectCard({ project: p, index, onStudy }: { project: Project; index: number; onStudy: () => void }) {
+function ProjectCard({ project: p, index }: { project: Project; index: number }) {
+  const frame = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: frame, offset: ["start end", "end start"] });
+  const parallax = useTransform(scrollYProgress, [0, 1], [-16, 16]);
+  const enter = entrances[index % entrances.length];
+
   return (
     <motion.article
       layout
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial="hidden"
+      whileInView="show"
       exit={{ opacity: 0, scale: 0.96 }}
       viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      variants={{ hidden: { opacity: 0 }, show: { opacity: 1, transition: { duration: 0.5 } } }}
       className={`group ${index % 2 === 1 ? "md:mt-14" : ""}`}
     >
-      {/* clip-path mask reveal */}
+      {/* directional entrance + mask reveal on the screenshot */}
       <motion.div
-        initial={{ clipPath: "inset(0 0 100% 0)" }}
-        whileInView={{ clipPath: "inset(0 0 0% 0)" }}
-        viewport={{ once: true, margin: "-60px" }}
-        transition={{ duration: 1, ease: [0.76, 0, 0.24, 1] }}
-        className="overflow-hidden rounded-xl"
+        variants={{
+          hidden: { ...enter, clipPath: "inset(0 0 100% 0)" },
+          show: { x: 0, y: 0, scale: 1, rotate: 0, opacity: 1, clipPath: "inset(0 0 0% 0)", transition: { duration: 1, ease: [0.22, 1, 0.36, 1] } },
+        }}
+        className="overflow-hidden rounded-xl motion-reduce:!transform-none motion-reduce:![clip-path:none] motion-reduce:!opacity-100"
       >
-        <Tilt className="transition-transform duration-700 ease-out group-hover:scale-[1.03]">
-          <BrowserMockup
-            variant={p.mockup}
-            image={p.image}
-            alt={p.imageAlt ?? `${p.name} website screenshot`}
-            label={p.url ? p.url.replace(/^https?:\/\//, "") : "yourproject.com"}
-          />
-        </Tilt>
+        <div ref={frame} className="overflow-hidden rounded-xl">
+          {/* parallax drifts the screenshot slightly against the scroll */}
+          <motion.div style={{ y: parallax, scale: 1.05 }} className="motion-reduce:!transform-none">
+            <Tilt className="transition-transform duration-700 ease-out group-hover:scale-[1.03]">
+              <BrowserMockup
+                variant={p.mockup}
+                image={p.image}
+                alt={p.imageAlt ?? `${p.name} website screenshot`}
+                label={p.url ? p.url.replace(/^https?:\/\//, "") : "yourproject.com"}
+              />
+            </Tilt>
+          </motion.div>
+        </div>
       </motion.div>
 
       <div className="mt-6">
@@ -128,72 +146,27 @@ function ProjectCard({ project: p, index, onStudy }: { project: Project; index: 
           </ul>
         )}
 
-        {(p.url || p.caseStudy) && (
-          <div className="mt-5 flex flex-wrap gap-3">
-            {p.url && (
-              <a
-                href={p.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-black transition-transform hover:scale-[1.04]"
-              >
-                Visit site <ArrowUpRight className="size-4" aria-hidden="true" />
-                <span className="sr-only">(opens in a new tab)</span>
-              </a>
-            )}
-            {p.caseStudy && (
-              <button
-                type="button"
-                onClick={onStudy}
-                className="inline-flex items-center gap-1.5 rounded-full border border-line px-5 py-2.5 text-sm font-semibold transition-colors hover:border-accent hover:text-accent"
-              >
-                <BookOpen className="size-4" aria-hidden="true" /> Case study
-              </button>
-            )}
-          </div>
-        )}
-      </div>
-    </motion.article>
-  );
-}
-
-function CaseStudy({ project, onClose }: { project: Project | null; onClose: () => void }) {
-  const ref = useRef<HTMLDialogElement>(null);
-  useEffect(() => {
-    const d = ref.current;
-    if (!d) return;
-    if (project && !d.open) d.showModal();
-    if (!project && d.open) d.close();
-  }, [project]);
-
-  return (
-    <dialog
-      ref={ref}
-      onClose={onClose}
-      onClick={(e) => e.target === ref.current && onClose()}
-      aria-labelledby="case-title"
-      className="m-auto w-[min(92vw,42rem)] rounded-2xl border border-line bg-surface p-0 text-ink backdrop:bg-black/80 backdrop:backdrop-blur-sm"
-    >
-      {project?.caseStudy && (
-        <div className="p-7 md:p-10">
-          <div className="flex items-start justify-between gap-4">
-            <h3 id="case-title" className="font-display text-3xl font-semibold">
-              {project.name}
-            </h3>
-            <button type="button" onClick={onClose} aria-label="Close case study" className="grid size-10 shrink-0 place-items-center rounded-full border border-line">
-              <X className="size-4" />
-            </button>
-          </div>
-          <p className="mt-5 leading-relaxed text-muted">{project.caseStudy.summary}</p>
-          {project.caseStudy.points && (
-            <ul className="mt-5 grid gap-2 text-sm">
-              {project.caseStudy.points.map((pt) => (
-                <li key={pt}>— {pt}</li>
-              ))}
-            </ul>
+        <div className="mt-5 flex flex-wrap gap-3">
+          <Link
+            href={`/projects/${p.slug}`}
+            className="inline-flex items-center gap-1.5 rounded-full border border-line px-5 py-2.5 text-sm font-semibold transition-colors hover:border-accent hover:text-accent"
+          >
+            <BookOpen className="size-4" aria-hidden="true" /> Case study
+            <span className="sr-only"> — {p.name}</span>
+          </Link>
+          {p.url && (
+            <a
+              href={p.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-black transition-transform hover:scale-[1.04]"
+            >
+              Visit site <ArrowUpRight className="size-4" aria-hidden="true" />
+              <span className="sr-only"> (opens in a new tab)</span>
+            </a>
           )}
         </div>
-      )}
-    </dialog>
+      </div>
+    </motion.article>
   );
 }

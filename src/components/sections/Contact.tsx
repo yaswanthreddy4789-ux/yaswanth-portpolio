@@ -85,7 +85,7 @@ export function Contact() {
         <div>
           <Reveal>
             <p className="mb-5 flex items-center gap-3 font-mono text-xs uppercase tracking-[0.2em] text-muted">
-              <span className="text-accent">09</span>
+              <span className="text-accent">10</span>
               <span className="h-px w-10 bg-line" aria-hidden="true" />
               Contact
             </p>

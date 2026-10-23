@@ -20,6 +20,11 @@ export const site = {
   /** Profile photo in /public. Change it with: npm run photo -- "C:\path\to\image.jpg"  (leave "" to hide) */
   photo: "/photo.jpg",
   photoAlt: "Portrait of Yaswanth Amasa",
+  /**
+   * URL of your separate services website. Set NEXT_PUBLIC_SERVICES_URL in Vercel once it is live;
+   * until then "Hire me" scrolls to the contact form.
+   */
+  servicesUrl: (process.env.NEXT_PUBLIC_SERVICES_URL ?? "").replace(/\/$/, ""),
   /** Shown under the photo */
   location: "Ahmedabad, India",
 

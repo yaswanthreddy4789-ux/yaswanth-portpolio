@@ -13,7 +13,7 @@ export function Process() {
 
   return (
     <section id="process" aria-labelledby="process-title" className="mx-auto max-w-7xl px-5 py-14 md:px-8 md:py-20">
-      <SectionHeading id="process-title" index="05" eyebrow="Development Process" lines={["From Idea", "to Launch."]} accentLine={1} />
+      <SectionHeading id="process-title" index="06" eyebrow="Development Process" lines={["From Idea", "to Launch."]} accentLine={1} />
 
       <ol ref={ref} className="relative mx-auto max-w-5xl">
         {/* track + animated progress */}

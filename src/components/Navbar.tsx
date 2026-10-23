@@ -9,6 +9,10 @@ import { services } from "@/config/content";
 import { servicePages } from "@/config/service-pages";
 import { Magnetic } from "@/components/ui/Interactions";
 
+const hire = site.servicesUrl
+  ? { href: site.servicesUrl, target: "_blank" as const, rel: "noopener noreferrer" }
+  : null;
+
 const serviceLinks = servicePages.map((p) => ({ id: p.id, title: services.find((s) => s.id === p.id)?.title ?? p.id }));
 
 /** `base` is "" on the home page and "/" on sub-pages so hash links go back home. */
@@ -16,7 +20,7 @@ export function Navbar({ base = "" }: { base?: string }) {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [menu, setMenu] = useState(false);
-  const [active, setActive] = useState("home");
+  const [active, setActive] = useState(base ? "" : "home");
   const menuRef = useRef<HTMLLIElement>(null);
 
   useEffect(() => {
@@ -27,6 +31,7 @@ export function Navbar({ base = "" }: { base?: string }) {
   }, []);
 
   useEffect(() => {
+    if (base) return; // sub-pages have no home sections to track
     const ids = site.nav.map((n) => n.href.slice(1));
     const els = ids.map((id) => document.getElementById(id)).filter((e): e is HTMLElement => !!e);
     if (!els.length) return;
@@ -36,7 +41,7 @@ export function Navbar({ base = "" }: { base?: string }) {
     );
     els.forEach((el) => io.observe(el));
     return () => io.disconnect();
-  }, []);
+  }, [base]);
 
   useEffect(() => {
     if (!open) return;
@@ -149,7 +154,7 @@ export function Navbar({ base = "" }: { base?: string }) {
         </ul>
 
         <Magnetic strength={0.25} className="hidden lg:inline-block">
-          <a href={link("#contact")} className="inline-block rounded-full bg-accent px-5 py-2 text-sm font-semibold text-black transition-transform hover:scale-[1.04] active:scale-95">
+          <a {...(hire ?? { href: link("#contact") })} className="inline-block rounded-full bg-accent px-5 py-2 text-sm font-semibold text-black transition-transform hover:scale-[1.04] active:scale-95">
             Hire me
           </a>
         </Magnetic>
@@ -200,7 +205,7 @@ export function Navbar({ base = "" }: { base?: string }) {
                 </li>
               ))}
             </ul>
-            <a href={link("#contact")} onClick={() => setOpen(false)} className="mt-8 block rounded-full bg-accent py-4 text-center font-semibold text-black">
+            <a {...(hire ?? { href: link("#contact") })} onClick={() => setOpen(false)} className="mt-8 block rounded-full bg-accent py-4 text-center font-semibold text-black">
               Hire me
             </a>
           </motion.div>
