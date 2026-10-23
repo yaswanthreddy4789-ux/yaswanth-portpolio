@@ -6,6 +6,7 @@ import { services } from "@/config/content";
 import { servicePages } from "@/config/service-pages";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { QuoteForm } from "@/components/QuoteForm";
 import { Icon } from "@/components/ui/icons";
 
 export const metadata: Metadata = {
@@ -43,6 +44,12 @@ export default function ServicesIndex() {
             );
           })}
         </ul>
+
+        <section id="quote" aria-labelledby="quote-title" className="mt-24 scroll-mt-24">
+          <h2 id="quote-title" className="font-display text-3xl font-semibold md:text-4xl">Request a quote</h2>
+          <p className="mb-6 mt-3 max-w-2xl text-muted">Tell me about your project and I will reply with next steps and an estimate based on scope.</p>
+          <QuoteForm />
+        </section>
       </main>
       <Footer base="/" />
     </div>

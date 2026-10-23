@@ -61,7 +61,7 @@ export const site = {
     heading: "Have a Project in Mind?",
     text: "Let's turn your idea into a website that looks great, works smoothly, and helps your business move forward.",
     /** PLACEHOLDER: your real email. example.com is a reserved, harmless domain. */
-    email: "yaswanthreddyamasa4789@gmail.com",
+    email: "yaswanthreddy4789@gmail.com",
     /** Display format of your phone number */
     phone: "+91 89196 74214",
     phoneHref: "tel:+918919674214",

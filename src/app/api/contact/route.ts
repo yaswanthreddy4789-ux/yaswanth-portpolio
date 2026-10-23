@@ -1,11 +1,18 @@
 import { NextResponse } from "next/server";
 import { validateContact, type ContactInput } from "@/lib/contact";
+import { site } from "@/config/site";
 
 /**
- * Delivers contact-form submissions by email through Resend (https://resend.com).
- * Secrets stay on the server: set RESEND_API_KEY and CONTACT_TO_EMAIL in the
- * Vercel project settings (never in client code). Until they are set this
- * endpoint answers 503 so the UI never claims a message was delivered.
+ * Delivers quote requests by email. Secrets and the recipient stay on the server.
+ *
+ * Provider order:
+ *  1. Resend (https://resend.com) when RESEND_API_KEY is set. Best deliverability.
+ *  2. FormSubmit (https://formsubmit.co), a no-signup relay, otherwise. The first
+ *     submission triggers an activation email to the recipient; click "Activate Form"
+ *     once and every later message is delivered.
+ *
+ * Recipient: CONTACT_TO_EMAIL, falling back to the email in src/config/site.ts.
+ * The API never reports success unless a provider confirmed delivery.
  */
 
 // Best-effort per-instance rate limit. Serverless instances don't share memory,
@@ -48,33 +55,67 @@ export async function POST(req: Request) {
   const input: ContactInput = {
     name: str("name").trim(),
     email: str("email").trim(),
-    projectType: str("projectType").trim(),
+    businessName: str("businessName").trim(),
+    service: str("service").trim(),
     budget: str("budget").trim(),
+    contactMethod: str("contactMethod").trim(),
     message: str("message").trim(),
   };
   const errors = validateContact(input);
   if (Object.keys(errors).length) return NextResponse.json({ error: "validation", fields: errors }, { status: 422 });
 
-  const key = process.env.RESEND_API_KEY;
-  const to = process.env.CONTACT_TO_EMAIL;
-  if (!key || !to) return NextResponse.json({ error: "not_configured" }, { status: 503 });
-
-  const from = process.env.CONTACT_FROM_EMAIL || "Portfolio Contact <onboarding@resend.dev>";
-  const subject = `New enquiry: ${input.projectType} — ${input.name}`.replace(/[\r\n]+/g, " ");
-  const text = `Name: ${input.name}\nEmail: ${input.email}\nProject type: ${input.projectType}\nBudget: ${input.budget || "—"}\n\n${input.message}`;
-  const html = `<p><b>Name:</b> ${esc(input.name)}<br><b>Email:</b> ${esc(input.email)}<br><b>Project type:</b> ${esc(input.projectType)}<br><b>Budget:</b> ${esc(input.budget || "—")}</p><p style="white-space:pre-wrap">${esc(input.message)}</p>`;
+  const to = process.env.CONTACT_TO_EMAIL || site.contact.email;
+  const subject = `New quote request: ${input.service} — ${input.name}`.replace(/[\r\n]+/g, " ");
+  const lines = [
+    ["Name", input.name],
+    ["Email", input.email],
+    ["Business", input.businessName || "—"],
+    ["Service", input.service],
+    ["Budget", input.budget || "—"],
+    ["Preferred contact", input.contactMethod || "—"],
+  ];
 
   try {
-    const res = await fetch("https://api.resend.com/emails", {
-      method: "POST",
-      headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
-      body: JSON.stringify({ from, to: [to], reply_to: input.email, subject, text, html }),
-    });
-    if (!res.ok) {
-      console.error("Resend error", res.status, await res.text().catch(() => ""));
-      return NextResponse.json({ error: "delivery_failed" }, { status: 502 });
+    const key = process.env.RESEND_API_KEY;
+    if (key) {
+      const from = process.env.CONTACT_FROM_EMAIL || "Quote Requests <onboarding@resend.dev>";
+      const text = lines.map(([k, v]) => `${k}: ${v}`).join("\n") + `\n\n${input.message}`;
+      const html = `<p>${lines.map(([k, v]) => `<b>${k}:</b> ${esc(v)}`).join("<br>")}</p><p style="white-space:pre-wrap">${esc(input.message)}</p>`;
+      const res = await fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
+        body: JSON.stringify({ from, to: [to], reply_to: input.email, subject, text, html }),
+      });
+      if (!res.ok) {
+        console.error("Resend error", res.status, await res.text().catch(() => ""));
+        return NextResponse.json({ error: "delivery_failed" }, { status: 502 });
+      }
+      return NextResponse.json({ ok: true });
     }
-    return NextResponse.json({ ok: true });
+
+    // Fallback: FormSubmit relay (no account or API key needed).
+    const origin = process.env.NEXT_PUBLIC_SITE_URL || site.url;
+    const res = await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(to)}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Accept: "application/json", Origin: origin, Referer: `${origin}/services` },
+      body: JSON.stringify({
+        name: input.name,
+        email: input.email,
+        business: input.businessName || "—",
+        service: input.service,
+        budget: input.budget || "—",
+        preferred_contact: input.contactMethod || "—",
+        message: input.message,
+        _subject: subject,
+        _template: "table",
+        _captcha: "false",
+      }),
+    });
+    const data = (await res.json().catch(() => ({}))) as { success?: string | boolean; message?: string };
+    if (res.ok && (data.success === true || data.success === "true")) return NextResponse.json({ ok: true });
+    console.error("FormSubmit not delivered:", res.status, data.message);
+    const needsActivation = /activat/i.test(data.message ?? "");
+    return NextResponse.json({ error: needsActivation ? "activation_required" : "delivery_failed" }, { status: 502 });
   } catch (err) {
     console.error("Contact delivery exception", err);
     return NextResponse.json({ error: "delivery_failed" }, { status: 502 });

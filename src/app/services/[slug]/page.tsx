@@ -7,6 +7,7 @@ import { services } from "@/config/content";
 import { getServicePage, servicePages } from "@/config/service-pages";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { QuoteForm } from "@/components/QuoteForm";
 import { Icon } from "@/components/ui/icons";
 
 export const dynamicParams = false;
@@ -64,7 +65,7 @@ export default async function ServicePageRoute({ params }: Props) {
         <h1 className="font-display text-[clamp(2.2rem,6vw,4.4rem)] font-semibold leading-[1.02] tracking-tight">{p.headline}</h1>
         <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted">{p.intro}</p>
         <div className="mt-8 flex flex-wrap gap-3">
-          <Link href="/#contact" className="inline-flex items-center gap-2 rounded-full bg-accent px-7 py-3.5 text-sm font-semibold text-black transition-transform hover:scale-[1.04]">
+          <Link href="#quote" className="inline-flex items-center gap-2 rounded-full bg-accent px-7 py-3.5 text-sm font-semibold text-black transition-transform hover:scale-[1.04]">
             Get a free quote <ArrowUpRight className="size-4" aria-hidden="true" />
           </Link>
           <a href={site.socials.find((s) => s.label === "WhatsApp")?.href} target="_blank" rel="noopener noreferrer" className="inline-flex items-center rounded-full border border-line px-7 py-3.5 text-sm font-semibold hover:border-accent hover:text-accent">
@@ -100,6 +101,12 @@ export default async function ServicePageRoute({ params }: Props) {
               </details>
             ))}
           </div>
+        </section>
+
+        <section id="quote" aria-labelledby="quote-title" className="mt-20 scroll-mt-24">
+          <h2 id="quote-title" className="font-display text-3xl font-semibold">Request a quote</h2>
+          <p className="mb-6 mt-3 max-w-2xl text-muted">Tell me about your project and I will reply with next steps and an estimate based on scope.</p>
+          <QuoteForm defaultService={svc.title} />
         </section>
 
         <section aria-labelledby="more" className="mt-20">
