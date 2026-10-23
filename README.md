@@ -32,16 +32,13 @@ npm start        # serve the production build
 - **Availability badge:** `site.availability.enabled`.
 - **Colours:** `site.theme`.
 
-## Contact form
+## Services and quote requests
 
-The form posts to `/api/contact`, which emails you through [Resend](https://resend.com). Until configured the API returns 503 and the form tells visitors to email you directly (it never claims delivery).
+This portfolio has no service pages and no contact form. They live on the separate services website. Once it is live, set `NEXT_PUBLIC_SERVICES_URL` in Vercel (Settings → Environment Variables). The "Hire me" and case-study buttons then open it, and the old `/services/...` URLs redirect to it. Until then "Hire me" scrolls to the Contact details (email, phone, WhatsApp).
 
-1. Create a Resend account and API key.
-2. Set `RESEND_API_KEY` and `CONTACT_TO_EMAIL` (and optionally `CONTACT_FROM_EMAIL` from a verified domain) in Vercel → Settings → Environment Variables, then redeploy.
+## Hero photos
 
-Note: without a verified domain Resend's test sender can only deliver to the email address that owns the Resend account.
-
-Spam protection: hidden honeypot, minimum fill time, input validation/escaping, and a best-effort per-instance rate limit.
+The hero entrance uses three photos from `public/hero/`; the About section and preloader use `public/photo.jpg`. Change the main portrait with `npm run photo -- "C:\path\to\image.jpg"`. To change the hero photos, replace the files in `public/hero/` (720x900 JPG).
 
 ## Push to GitHub
 

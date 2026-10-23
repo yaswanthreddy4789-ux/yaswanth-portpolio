@@ -1,27 +1,19 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import Link from "next/link";
+import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { ChevronDown, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { site } from "@/config/site";
-import { services } from "@/config/content";
-import { servicePages } from "@/config/service-pages";
 import { Magnetic } from "@/components/ui/Interactions";
 
-const hire = site.servicesUrl
-  ? { href: site.servicesUrl, target: "_blank" as const, rel: "noopener noreferrer" }
-  : null;
-
-const serviceLinks = servicePages.map((p) => ({ id: p.id, title: services.find((s) => s.id === p.id)?.title ?? p.id }));
+/** Opens the separate services website when NEXT_PUBLIC_SERVICES_URL is set, otherwise scrolls to Contact. */
+const hire = site.servicesUrl ? { href: site.servicesUrl, target: "_blank" as const, rel: "noopener noreferrer" } : null;
 
 /** `base` is "" on the home page and "/" on sub-pages so hash links go back home. */
 export function Navbar({ base = "" }: { base?: string }) {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const [menu, setMenu] = useState(false);
   const [active, setActive] = useState(base ? "" : "home");
-  const menuRef = useRef<HTMLLIElement>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -55,20 +47,7 @@ export function Navbar({ base = "" }: { base?: string }) {
     };
   }, [open]);
 
-  useEffect(() => {
-    if (!menu) return;
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setMenu(false);
-    const onDown = (e: PointerEvent) => !menuRef.current?.contains(e.target as Node) && setMenu(false);
-    document.addEventListener("keydown", onKey);
-    document.addEventListener("pointerdown", onDown);
-    return () => {
-      document.removeEventListener("keydown", onKey);
-      document.removeEventListener("pointerdown", onDown);
-    };
-  }, [menu]);
-
   const link = (href: string) => `${base}${href}`;
-  const pill = "relative rounded-full px-4 py-2 text-sm transition-colors";
 
   return (
     <header
@@ -85,69 +64,18 @@ export function Navbar({ base = "" }: { base?: string }) {
         <ul className="hidden items-center gap-1 lg:flex">
           {site.nav.map((n) => {
             const on = active === n.href.slice(1);
-            const isServices = n.label === "Services";
             return (
-              <li
-                key={n.href}
-                ref={isServices ? menuRef : undefined}
-                className="relative"
-                onMouseEnter={isServices ? () => setMenu(true) : undefined}
-                onMouseLeave={isServices ? () => setMenu(false) : undefined}
-              >
-                <div className="flex items-center">
-                  <a
-                    href={link(n.href)}
-                    aria-current={on ? "true" : undefined}
-                    className={`${pill} ${on ? "text-ink" : "text-muted hover:text-ink"} ${isServices ? "pr-1.5" : ""}`}
-                  >
-                    {on && (
-                      <motion.span layoutId="nav-pill" className="absolute inset-0 rounded-full bg-white/[0.07]" transition={{ type: "spring", stiffness: 400, damping: 32 }} />
-                    )}
-                    <span className="relative">{n.label}</span>
-                  </a>
-                  {isServices && (
-                    <button
-                      type="button"
-                      aria-expanded={menu}
-                      aria-controls="services-menu"
-                      aria-label="Toggle service pages menu"
-                      onClick={() => setMenu((m) => !m)}
-                      className="-ml-1 grid size-8 place-items-center rounded-full text-muted hover:text-ink"
-                    >
-                      <ChevronDown className={`size-4 transition-transform ${menu ? "rotate-180" : ""}`} />
-                    </button>
+              <li key={n.href}>
+                <a
+                  href={link(n.href)}
+                  aria-current={on ? "true" : undefined}
+                  className={`relative rounded-full px-4 py-2 text-sm transition-colors ${on ? "text-ink" : "text-muted hover:text-ink"}`}
+                >
+                  {on && (
+                    <motion.span layoutId="nav-pill" className="absolute inset-0 rounded-full bg-white/[0.07]" transition={{ type: "spring", stiffness: 400, damping: 32 }} />
                   )}
-                </div>
-
-                {isServices && (
-                  <AnimatePresence>
-                    {menu && (
-                      <motion.div
-                        id="services-menu"
-                        initial={{ opacity: 0, y: 8 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: 8 }}
-                        transition={{ duration: 0.18 }}
-                        className="absolute left-0 top-full z-50 w-72 pt-3"
-                      >
-                        <ul className="overflow-hidden rounded-2xl border border-line bg-surface/95 p-2 shadow-2xl backdrop-blur-xl">
-                          <li>
-                            <Link href="/services" onClick={() => setMenu(false)} className="block rounded-xl px-3 py-2.5 text-sm font-semibold text-accent hover:bg-white/[0.05]">
-                              All services →
-                            </Link>
-                          </li>
-                          {serviceLinks.map((s) => (
-                            <li key={s.id}>
-                              <Link href={`/services/${s.id}`} onClick={() => setMenu(false)} className="block rounded-xl px-3 py-2.5 text-sm text-ink/90 hover:bg-white/[0.05] hover:text-accent">
-                                {s.title}
-                              </Link>
-                            </li>
-                          ))}
-                        </ul>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                )}
+                  <span className="relative">{n.label}</span>
+                </a>
               </li>
             );
           })}
@@ -192,17 +120,6 @@ export function Navbar({ base = "" }: { base?: string }) {
                     <span className="font-mono text-xs text-muted">{String(i + 1).padStart(2, "0")}</span>
                   </a>
                 </motion.li>
-              ))}
-            </ul>
-            <p className="mb-3 mt-8 font-mono text-xs uppercase tracking-widest text-muted">Service pages</p>
-            <ul className="flex flex-wrap gap-2">
-              <li>
-                <Link href="/services" onClick={() => setOpen(false)} className="inline-block rounded-full border border-accent/60 px-4 py-2 text-sm text-accent">All services</Link>
-              </li>
-              {serviceLinks.map((s) => (
-                <li key={s.id}>
-                  <Link href={`/services/${s.id}`} onClick={() => setOpen(false)} className="inline-block rounded-full border border-line px-4 py-2 text-sm">{s.title}</Link>
-                </li>
               ))}
             </ul>
             <a {...(hire ?? { href: link("#contact") })} onClick={() => setOpen(false)} className="mt-8 block rounded-full bg-accent py-4 text-center font-semibold text-black">

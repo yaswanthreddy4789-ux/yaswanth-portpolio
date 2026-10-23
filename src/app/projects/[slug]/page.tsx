@@ -50,7 +50,7 @@ export default async function ProjectPage({ params }: Props) {
   const next = real[(i + 1) % real.length];
   // Scope-of-work bullets are the project description's own sentences, nothing added.
   const scope = p.description.split(/(?<=\.)\s+(?=[A-Z])/).map((s) => s.trim()).filter(Boolean);
-  const hire = site.servicesUrl ? `${site.servicesUrl}/services` : "/services#quote";
+  const hire = site.servicesUrl ? `${site.servicesUrl}/services` : "/#contact";
   const hireExternal = Boolean(site.servicesUrl);
 
   const jsonLd = {
@@ -173,7 +173,7 @@ export default async function ProjectPage({ params }: Props) {
               {...(hireExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
               className="mt-6 inline-flex items-center gap-2 rounded-full bg-accent px-7 py-3.5 text-sm font-semibold text-black transition-transform hover:scale-[1.04]"
             >
-              Request a quote <ArrowUpRight className="size-4" aria-hidden="true" />
+              {hireExternal ? "Request a quote" : "Get in touch"} <ArrowUpRight className="size-4" aria-hidden="true" />
               {hireExternal && <span className="sr-only"> (opens in a new tab)</span>}
             </a>
           </div>

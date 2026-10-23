@@ -1,5 +1,5 @@
-/**
- * CONTENT — About, services, process, principles, testimonials, achievements.
+﻿/**
+ * CONTENT â€” About, services, process, principles, testimonials, achievements.
  */
 
 export type AboutBlock = { id: string; label: string; title: string; body: string; placeholder?: boolean };
@@ -48,21 +48,6 @@ export const about = {
   ] as AboutBlock[],
 };
 
-export type Service = { id: string; title: string; text: string; icon: string };
-
-export const services: Service[] = [
-  { id: "business-websites", title: "Business Websites", icon: "globe", text: "Clear, credible websites that explain what you do and make it easy to get in touch." },
-  { id: "wordpress", title: "WordPress Development", icon: "layout", text: "Custom WordPress builds, theme work and plugin setup tailored to how you work." },
-  { id: "woocommerce", title: "WooCommerce Stores", icon: "cart", text: "Online stores on WooCommerce with product, checkout and catalogue setup." },
-  { id: "shopify", title: "Shopify Stores", icon: "shopping", text: "Shopify store builds and theme customization focused on a smooth buying experience." },
-  { id: "wix", title: "Wix Websites", icon: "panel", text: "Responsive, polished Wix sites you can confidently manage yourself." },
-  { id: "landing", title: "Landing Pages", icon: "rocket", text: "Focused single-purpose pages designed to turn visitors into enquiries." },
-  { id: "redesign", title: "Website Redesigns", icon: "refresh", text: "Give an outdated site a modern look and better structure without starting from zero." },
-  { id: "customization", title: "Theme & Page-Builder Customization", icon: "blocks", text: "Tailored changes to existing themes and WPBakery layouts, done cleanly." },
-  { id: "integrations", title: "Third-Party Integrations", icon: "plug", text: "Connect your site to the tools and APIs your business already relies on." },
-  { id: "maintenance", title: "Maintenance & Optimization", icon: "wrench", text: "Troubleshooting, technical improvements and performance work to keep things healthy." },
-];
-
 export const processSteps = [
   { n: "01", title: "Discover", icon: "search", text: "Understand the client's business, target audience, goals, and requirements." },
   { n: "02", title: "Plan", icon: "map", text: "Define the structure, user journey, functionality, and technical approach." },
@@ -85,24 +70,24 @@ export const principles = [
 ];
 
 /**
- * TESTIMONIALS — add ONLY real, permitted quotes. While this list is empty the
+ * TESTIMONIALS â€” add ONLY real, permitted quotes. While this list is empty the
  * section is hidden. Never add invented reviews, ratings or client logos.
  */
 export type Testimonial = { quote: string; name: string; role?: string; company?: string };
 export const testimonials: Testimonial[] = [];
 
-/** ACHIEVEMENTS / CERTIFICATIONS — real ones only. Empty = section hidden. */
+/** ACHIEVEMENTS / CERTIFICATIONS â€” real ones only. Empty = section hidden. */
 export type Achievement = { title: string; issuer?: string; year?: string };
 export const achievements: Achievement[] = [];
 
-/** EXPERIENCE & EDUCATION — taken from your resume. Edit freely. */
+/** EXPERIENCE & EDUCATION â€” taken from your resume. Edit freely. */
 export const experience = {
   roles: [
     {
       title: "Web Developer",
       company: "Syndell Technologies",
       place: "Ahmedabad, India",
-      period: "May 2023 – Present",
+      period: "May 2023 â€“ Present",
       points: [
         "Build, customize and maintain WordPress websites end to end, from theme and UI implementation to custom functionality, database work and performance.",
         "Develop custom WordPress plugins and themes to client requirements, extending core functionality beyond off-the-shelf solutions.",
@@ -123,3 +108,4 @@ export const experience = {
   ],
   education: [{ title: "Bachelor of Science (B.Sc.) in Computers", detail: "Graduated 2022" }],
 };
+

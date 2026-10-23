@@ -1,12 +1,11 @@
 "use client";
 
-import { motion, useMotionValue, useSpring, useTransform } from "motion/react";
-import Image from "next/image";
+import { motion, useMotionValue, useSpring } from "motion/react";
 import { ArrowDown, ArrowUpRight } from "lucide-react";
 import { site } from "@/config/site";
-import { BrowserMockup } from "@/components/ui/BrowserMockup";
 import { useReady } from "@/components/Providers";
 import { Magnetic } from "@/components/ui/Interactions";
+import { HeroPhotos } from "./HeroPhotos";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -15,15 +14,11 @@ export function Hero() {
   const show = ready ? "show" : "hide";
   const h = site.hero;
 
-  // Subtle pointer parallax for the mockups (desktop pointers only; no effect on touch).
+  // Subtle pointer parallax for the photos (desktop pointers only; no effect on touch).
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
   const sx = useSpring(mx, { stiffness: 80, damping: 20 });
   const sy = useSpring(my, { stiffness: 80, damping: 20 });
-  const rotY = useTransform(sx, [-1, 1], [-5, 5]);
-  const rotX = useTransform(sy, [-1, 1], [4, -4]);
-  const x2 = useTransform(sx, [-1, 1], [-14, 14]);
-  const y2 = useTransform(sy, [-1, 1], [-10, 10]);
 
   const container = { hide: {}, show: { transition: { staggerChildren: 0.11, delayChildren: 0.15 } } };
   const fadeUp = { hide: { opacity: 0, y: 24 }, show: { opacity: 1, y: 0, transition: { duration: 0.8, ease } } };
@@ -50,9 +45,6 @@ export function Hero() {
       <div className="mx-auto grid w-full max-w-7xl items-center gap-14 px-5 md:px-8 lg:grid-cols-[1.2fr_0.8fr]">
         <motion.div variants={container} initial="hide" animate={show}>
           <motion.div variants={fadeUp} className="mb-7 flex flex-wrap items-center gap-3">
-            {site.photo && (
-              <Image src={site.photo} alt="" width={40} height={40} priority className="size-10 rounded-full border border-line object-cover object-[50%_20%]" />
-            )}
             <span className="font-mono text-xs uppercase tracking-[0.2em] text-muted">{h.label}</span>
             {site.availability.enabled && (
               <span className="inline-flex items-center gap-2 rounded-full border border-line bg-white/[0.03] px-3 py-1 text-xs text-ink">
@@ -91,49 +83,25 @@ export function Hero() {
           <motion.div variants={fadeUp} className="mt-9 flex flex-wrap gap-3">
             <Magnetic>
               <a
-              href={h.primaryCta.href}
-              className="group inline-flex items-center gap-2 rounded-full bg-accent px-7 py-3.5 text-sm font-semibold text-black transition-transform hover:scale-[1.04] active:scale-95"
-            >
-              {h.primaryCta.label}
-              <ArrowUpRight className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-            </a>
-            </Magnetic>            <Magnetic>
+                href={h.primaryCta.href}
+                className="group inline-flex items-center gap-2 rounded-full bg-accent px-7 py-3.5 text-sm font-semibold text-black transition-transform hover:scale-[1.04] active:scale-95"
+              >
+                {h.primaryCta.label}
+                <ArrowUpRight className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+              </a>
+            </Magnetic>
+            <Magnetic>
               <a
-              href={h.secondaryCta.href}
-              className="inline-flex items-center gap-2 rounded-full border border-line px-7 py-3.5 text-sm font-semibold transition-colors hover:border-accent hover:text-accent"
-            >
-              {h.secondaryCta.label}
-            </a>
+                href={h.secondaryCta.href}
+                className="inline-flex items-center gap-2 rounded-full border border-line px-7 py-3.5 text-sm font-semibold transition-colors hover:border-accent hover:text-accent"
+              >
+                {h.secondaryCta.label}
+              </a>
             </Magnetic>
           </motion.div>
         </motion.div>
 
-        {/* mockups */}
-        <motion.div
-          className="relative mx-auto w-full max-w-xl [perspective:1400px] lg:max-w-none"
-          initial={{ opacity: 0, y: 50 }}
-          animate={ready ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-          transition={{ duration: 1.1, ease, delay: 0.55 }}
-        >
-          <motion.div style={{ rotateY: rotY, rotateX: rotX }} className="relative [transform-style:preserve-3d]">
-            <div className="float-y">
-              <BrowserMockup variant="wordpress" image="/projects/health-connect.jpg" alt="Health Connect Group website, built with WordPress and Elementor Pro" label="healthconnectgroup.com.au" priority sizes="(min-width:1024px) 45vw, 90vw" className="relative z-10" />
-            </div>
-            <motion.div style={{ x: x2, y: y2 }} className="absolute -bottom-10 -left-6 z-20 hidden w-[46%] sm:block">
-              <div className="float-y [animation-delay:-3s]">
-                <BrowserMockup variant="shop" image="/projects/enwolt-bikes.jpg" alt="Enwolt Bikes Shopify store" label="enwoltbikes.com" sizes="22vw" />
-              </div>
-            </motion.div>
-            <motion.div style={{ x: x2, y: y2 }} className="absolute -right-4 -top-8 z-0 hidden w-[40%] sm:block">
-              <div className="float-y [animation-delay:-5s]">
-                <BrowserMockup variant="custom" image="/projects/dhe-parts.jpg" alt="DHE Parts WooCommerce store" label="dheparts.com" sizes="18vw" className="opacity-90" />
-              </div>
-            </motion.div>
-          </motion.div>
-          <p className="mt-14 text-center font-mono text-[11px] uppercase tracking-widest text-muted sm:mt-16">
-            Selected client work
-          </p>
-        </motion.div>
+        <HeroPhotos ready={ready} sx={sx} sy={sy} />
       </div>
 
       {/* scroll cue */}

@@ -7,7 +7,6 @@ import { About } from "@/components/sections/About";
 import { Expertise } from "@/components/sections/Expertise";
 import { Experience } from "@/components/sections/Experience";
 import { Projects } from "@/components/sections/Projects";
-import { Services } from "@/components/sections/Services";
 import { Process } from "@/components/sections/Process";
 import { Toolkit } from "@/components/sections/Toolkit";
 import { Principles } from "@/components/sections/Principles";
@@ -41,8 +40,6 @@ export default function Home() {
         <Experience />
         <Divider />
         <Projects />
-        <Divider />
-        <Services />
         <Divider />
         <Process />
         <Divider />

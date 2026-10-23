@@ -1,13 +1,11 @@
 import { ArrowUpRight, Mail, MessageCircle, Phone } from "lucide-react";
-import Link from "next/link";
 import { emailHref, site, visibleSocials } from "@/config/site";
 import { MaskLines, Reveal } from "@/components/ui/Reveal";
 
-/** Contact details only. The quote form lives on the services pages. */
+/** Contact details only. Quote requests live on the separate services website. */
 export function Contact() {
   const whatsapp = site.socials.find((s) => s.label === "WhatsApp" && s.href);
-  const hireHref = site.servicesUrl ? `${site.servicesUrl}/services` : "/services";
-  const hireExternal = Boolean(site.servicesUrl);
+  const quoteHref = site.servicesUrl ? `${site.servicesUrl}/services` : "";
 
   return (
     <section id="contact" aria-labelledby="contact-title" className="mx-auto max-w-7xl px-5 py-14 md:px-8 md:py-20">
@@ -48,15 +46,11 @@ export function Contact() {
         </div>
 
         <div className="mt-8 flex flex-wrap items-center gap-4">
-          {hireExternal ? (
-            <a href={hireHref} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-full bg-accent px-7 py-3.5 text-sm font-semibold text-black transition-transform hover:scale-[1.04]">
+          {quoteHref && (
+            <a href={quoteHref} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-full bg-accent px-7 py-3.5 text-sm font-semibold text-black transition-transform hover:scale-[1.04]">
               Request a quote <ArrowUpRight className="size-4" aria-hidden="true" />
               <span className="sr-only"> (opens in a new tab)</span>
             </a>
-          ) : (
-            <Link href="/services#quote" className="inline-flex items-center gap-2 rounded-full bg-accent px-7 py-3.5 text-sm font-semibold text-black transition-transform hover:scale-[1.04]">
-              Request a quote <ArrowUpRight className="size-4" aria-hidden="true" />
-            </Link>
           )}
           {visibleSocials
             .filter((s) => s.label !== "WhatsApp")

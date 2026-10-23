@@ -65,8 +65,6 @@ export const site = {
     /** Display format of your phone number */
     phone: "+91 89196 74214",
     phoneHref: "tel:+918919674214",
-    /** Budget options shown in the form. Edit freely; leave [] to hide the field. */
-    budgets: ["Under $1,000", "$1,000 – $3,000", "$3,000 – $7,500", "$7,500+", "Not sure yet"],
   },
 
   /**
@@ -84,7 +82,6 @@ export const site = {
     { label: "About", href: "#about" },
     { label: "Expertise", href: "#expertise" },
     { label: "Projects", href: "#projects" },
-    { label: "Services", href: "#services" },
     { label: "Process", href: "#process" },
     { label: "Contact", href: "#contact" },
   ],
