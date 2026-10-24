@@ -394,4 +394,200 @@ export const projects: Project[] = [
     ],
     "mockup": "wordpress"
   },
+  {
+    "slug": "dollar-blinds",
+    "name": "Dollar Blinds",
+    "category": "Shopify",
+    "stack": [
+      "Shopify",
+      "Draft Orders"
+    ],
+    "description": "Shopify store selling custom roller and zebra shades with factory-direct pricing and nationwide shipping. Built around unique product-page requirements, with price changes handled through draft orders.",
+    "role": "Developer",
+    "image": "/projects/dollar-blinds.jpg",
+    "imageAlt": "Homepage of the Dollar Blinds website",
+    "url": "https://dollarblinds.com/",
+    "skills": [
+      "shopify",
+      "backend"
+    ],
+    "mockup": "shop"
+  },
+  {
+    "slug": "hendon-heritage",
+    "name": "Hendon Heritage",
+    "category": "Shopify",
+    "stack": [
+      "Shopify",
+      "Ecommerce"
+    ],
+    "description": "Shopify store for an ethical women's intimates brand made from California-grown Pima cotton.",
+    "role": "Developer",
+    "image": "/projects/hendon-heritage.jpg",
+    "imageAlt": "Homepage of the Hendon Heritage website",
+    "url": "https://hendonheritage.com/",
+    "skills": [
+      "shopify"
+    ],
+    "mockup": "shop"
+  },
+  {
+    "slug": "rossano-law",
+    "name": "Rossano Law",
+    "category": "WordPress",
+    "stack": [
+      "WordPress",
+      "Elementor"
+    ],
+    "description": "WordPress website built with Elementor for a Florida personal injury law firm.",
+    "role": "Developer",
+    "image": "/projects/rossano-law.jpg",
+    "imageAlt": "Homepage of the Rossano Law website",
+    "url": "https://rossanolaw.com/",
+    "skills": [
+      "wordpress"
+    ],
+    "mockup": "wordpress"
+  },
+  {
+    "slug": "meltix",
+    "name": "Meltix",
+    "category": "WordPress",
+    "stack": [
+      "WordPress"
+    ],
+    "description": "WordPress marketing website for a melt-shop analytics software company, with pages for features, pricing, resources and contact.",
+    "role": "Developer",
+    "image": "/projects/meltix.jpg",
+    "imageAlt": "Homepage of the Meltix website",
+    "url": "https://meltix.net/",
+    "skills": [
+      "wordpress"
+    ],
+    "mockup": "wordpress"
+  },
+  {
+    "slug": "maleny-black-angus-beef",
+    "name": "Maleny Black Angus Beef",
+    "category": "WooCommerce",
+    "stack": [
+      "WordPress",
+      "WooCommerce"
+    ],
+    "description": "WooCommerce store selling 100% grass-fed beef direct from the farm, with delivery across South East Queensland.",
+    "role": "Developer",
+    "image": "/projects/maleny-black-angus-beef.jpg",
+    "imageAlt": "Homepage of the Maleny Black Angus Beef website",
+    "url": "https://malenyblackangusbeef.com.au/",
+    "skills": [
+      "wordpress"
+    ],
+    "mockup": "shop"
+  },
+  {
+    "slug": "suppliers-chemical",
+    "name": "Suppliers Chemical",
+    "category": "WooCommerce",
+    "stack": [
+      "WordPress",
+      "WooCommerce"
+    ],
+    "description": "WooCommerce website for a US manufacturer of fleet and industrial cleaning chemicals.",
+    "role": "Developer",
+    "image": "/projects/suppliers-chemical.jpg",
+    "imageAlt": "Homepage of the Suppliers Chemical website",
+    "url": "https://supplierschemical.com/",
+    "skills": [
+      "wordpress"
+    ],
+    "mockup": "shop"
+  },
+  {
+    "slug": "deedle-dees-creations",
+    "name": "Deedle Dee's Creations",
+    "category": "WooCommerce",
+    "stack": [
+      "WordPress",
+      "WooCommerce"
+    ],
+    "description": "WooCommerce shop for handmade gnomes and wreaths, with categories for gnomes, wreaths, and holiday and miscellaneous décor.",
+    "role": "Developer",
+    "image": "/projects/deedledees-creations.jpg",
+    "imageAlt": "Homepage of the Deedle Dee's Creations website",
+    "url": "https://deedledeescreations.com/",
+    "skills": [
+      "wordpress"
+    ],
+    "mockup": "shop"
+  },
+  {
+    "slug": "fastlane-classic-parts",
+    "name": "Fast Lane Classic Parts",
+    "category": "WooCommerce",
+    "stack": [
+      "WordPress",
+      "WooCommerce"
+    ],
+    "description": "WooCommerce parts store for classic cars, with product search, advanced search and a featured homepage slider.",
+    "role": "Developer",
+    "image": "/projects/fastlane-classic-parts.jpg",
+    "imageAlt": "Homepage of the Fast Lane Classic Parts website",
+    "url": "https://fastlaneclassicparts.com/",
+    "skills": [
+      "wordpress"
+    ],
+    "mockup": "shop"
+  },
+  {
+    "slug": "pure-logistics",
+    "name": "Pure Logistics",
+    "category": "Wix",
+    "stack": [
+      "Wix"
+    ],
+    "description": "Wix website for a nationwide FF&E logistics, warehousing and installation company serving hospitality, senior living and commercial projects.",
+    "role": "Developer",
+    "image": "/projects/pure-logistic-services.jpg",
+    "imageAlt": "Homepage of the Pure Logistics website",
+    "url": "https://www.purelogisticservices.com/",
+    "skills": [
+      "wix"
+    ],
+    "mockup": "wix"
+  },
+  {
+    "slug": "victorian-gardens",
+    "name": "Victorian Gardens",
+    "category": "Wix",
+    "stack": [
+      "Wix"
+    ],
+    "description": "Wix website for an independent senior living community in Eureka, MO.",
+    "role": "Developer",
+    "image": "/projects/victorian-gardens.jpg",
+    "imageAlt": "Homepage of the Victorian Gardens website",
+    "url": "https://www.victorian-gardens.com/",
+    "skills": [
+      "wix"
+    ],
+    "mockup": "wix"
+  },
+  {
+    "slug": "butterfly-floral-design",
+    "name": "Butterfly Floral & Event Design",
+    "category": "Custom Development",
+    "stack": [
+      "PHP"
+    ],
+    "description": "PHP website for a floral and event design studio, with pages for weddings, special events, a blog, press and contact.",
+    "role": "Developer",
+    "image": "/projects/butterfly-floral-design.jpg",
+    "imageAlt": "Homepage of the Butterfly Floral & Event Design website",
+    "url": "https://www.butterflyfloraldesign.com/",
+    "skills": [
+      "backend",
+      "frontend"
+    ],
+    "mockup": "custom"
+  },
 ];

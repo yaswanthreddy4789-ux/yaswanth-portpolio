@@ -12,6 +12,7 @@ import { Icon } from "@/components/ui/icons";
 export function Expertise() {
   const [selected, setSelected] = useState<string | null>(platforms[0].id);
   const sel = platforms.find((p) => p.id === selected);
+  const SHOWN = 5;
   const linked = sel ? projects.filter((p) => p.skills.includes(sel.id)) : [];
 
   return (
@@ -86,8 +87,9 @@ export function Expertise() {
                 <div>
                   <h3 className="font-mono text-xs uppercase tracking-widest text-muted">Featured projects</h3>
                   {linked.length ? (
+                    <>
                     <ul className="mt-5 grid gap-2">
-                      {linked.map((p) => (
+                      {linked.slice(0, SHOWN).map((p) => (
                         <li key={p.slug}>
                           <a
                             href="#projects"
@@ -102,6 +104,12 @@ export function Expertise() {
                         </li>
                       ))}
                     </ul>
+                    {linked.length > SHOWN && (
+                      <a href="#projects" className="mt-3 inline-block text-sm font-semibold text-accent hover:underline">
+                        + {linked.length - SHOWN} more in Projects
+                      </a>
+                    )}
+                    </>
                   ) : (
                     <p className="mt-5 text-sm text-muted">No featured project is linked to this skill yet.</p>
                   )}
