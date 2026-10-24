@@ -36,9 +36,9 @@ npm start        # serve the production build
 
 This portfolio has no service pages and no contact form. They live on the separate services website. Once it is live, set `NEXT_PUBLIC_SERVICES_URL` in Vercel (Settings → Environment Variables). The "Hire me" and case-study buttons then open it, and the old `/services/...` URLs redirect to it. Until then "Hire me" scrolls to the Contact details (email, phone, WhatsApp).
 
-## Intro photos
+## Intro animation and photos
 
-The opening entrance shows three photos from `public/intro/` (720x900 JPG) with your name. The About section uses `public/photo.jpg`. Change the About portrait with `npm run photo -- "C:\path\to\image.jpg"`; replace the files in `public/intro/` to change the entrance photos. The intro has a "Skip intro" button and is skipped for reduced-motion users.
+The opening entrance is a wireframe website that assembles itself while your name types out (`src/components/Preloader.tsx`). It has a "Skip intro" button, closes with Escape, and is skipped for reduced-motion users. The About section uses `public/photo.jpg`; change it with `npm run photo -- "C:\path\to\image.jpg"`.
 
 ## Push to GitHub
 

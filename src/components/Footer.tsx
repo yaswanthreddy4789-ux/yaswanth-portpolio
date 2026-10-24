@@ -27,7 +27,7 @@ export function Footer({ base = "" }: { base?: string }) {
             <p className="mb-4 font-mono text-xs uppercase tracking-widest text-muted">Navigate</p>
             <ul className="grid gap-2 text-sm">
               {site.nav.map((n) => (
-                <li key={n.href}><a href={`${base}${n.href}`} className="text-ink/90 hover:text-accent">{n.label}</a></li>
+                <li key={n.href}><a href={n.href.startsWith("/") ? n.href : `${base}${n.href}`} className="text-ink/90 hover:text-accent">{n.label}</a></li>
               ))}
             </ul>
           </nav>

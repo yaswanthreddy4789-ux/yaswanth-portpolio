@@ -24,7 +24,7 @@ export function Navbar({ base = "" }: { base?: string }) {
 
   useEffect(() => {
     if (base) return; // sub-pages have no home sections to track
-    const ids = site.nav.map((n) => n.href.slice(1));
+    const ids = site.nav.filter((n) => n.href.startsWith("#")).map((n) => n.href.slice(1));
     const els = ids.map((id) => document.getElementById(id)).filter((e): e is HTMLElement => !!e);
     if (!els.length) return;
     const io = new IntersectionObserver(
@@ -47,7 +47,7 @@ export function Navbar({ base = "" }: { base?: string }) {
     };
   }, [open]);
 
-  const link = (href: string) => `${base}${href}`;
+  const link = (href: string) => (href.startsWith("/") ? href : `${base}${href}`);
 
   return (
     <header

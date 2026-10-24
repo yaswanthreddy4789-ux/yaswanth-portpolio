@@ -1,7 +1,8 @@
 "use client";
 
 import { motion } from "motion/react";
-import { GraduationCap } from "lucide-react";
+import { Download, GraduationCap } from "lucide-react";
+import { site } from "@/config/site";
 import { experience } from "@/config/content";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 
@@ -11,6 +12,15 @@ export function Experience() {
   return (
     <section id="experience" aria-labelledby="experience-title" className="mx-auto max-w-7xl overflow-x-clip px-5 py-14 md:px-8 md:py-20">
       <SectionHeading id="experience-title" index="03" eyebrow="Experience" lines={["Where I've", "Been Building."]} accentLine={1} />
+
+      <div className="-mt-4 mb-8 flex flex-wrap gap-3 md:-mt-6">
+        <a href={site.resume.file} download className="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-black transition-transform hover:scale-[1.04]">
+          <Download className="size-4" aria-hidden="true" /> {site.resume.label}
+        </a>
+        <a href="/resume" className="inline-flex items-center rounded-full border border-line px-6 py-3 text-sm font-semibold transition-colors hover:border-accent hover:text-accent">
+          View resume online
+        </a>
+      </div>
 
       <div className="grid gap-6 lg:grid-cols-[1.6fr_1fr]">
         <div className="grid gap-6">

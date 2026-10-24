@@ -1,10 +1,11 @@
-import { ArrowUpRight, Mail, MessageCircle, Phone } from "lucide-react";
+import { ArrowUpRight, BriefcaseBusiness, Download, Mail, MessageCircle, Phone } from "lucide-react";
 import { emailHref, site, visibleSocials } from "@/config/site";
 import { MaskLines, Reveal } from "@/components/ui/Reveal";
 
 /** Contact details only. Quote requests live on the separate services website. */
 export function Contact() {
   const whatsapp = site.socials.find((s) => s.label === "WhatsApp" && s.href);
+  const linkedin = site.socials.find((s) => s.label === "LinkedIn" && s.href);
   const quoteHref = site.servicesUrl ? `${site.servicesUrl}/services` : "";
 
   return (
@@ -23,7 +24,7 @@ export function Contact() {
       <Reveal delay={0.15}>
         <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted">{site.contact.text}</p>
 
-        <div className="mt-10 grid gap-4 md:grid-cols-3">
+        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <a href={emailHref} className="group rounded-2xl border border-line bg-surface p-6 transition-colors hover:border-accent">
             <Mail className="size-6 text-accent" aria-hidden="true" />
             <p className="mt-6 font-mono text-[11px] uppercase tracking-widest text-muted">Email</p>
@@ -43,9 +44,21 @@ export function Contact() {
               </p>
             </a>
           )}
+          {linkedin && (
+            <a href={linkedin.href} target="_blank" rel="noopener noreferrer" className="group rounded-2xl border border-line bg-surface p-6 transition-colors hover:border-accent">
+              <BriefcaseBusiness className="size-6 text-accent" aria-hidden="true" />
+              <p className="mt-6 font-mono text-[11px] uppercase tracking-widest text-muted">LinkedIn</p>
+              <p className="mt-1 text-lg font-medium group-hover:text-accent">
+                Connect with me<span className="sr-only"> (opens in a new tab)</span>
+              </p>
+            </a>
+          )}
         </div>
 
         <div className="mt-8 flex flex-wrap items-center gap-4">
+          <a href={site.resume.file} download className="inline-flex items-center gap-2 rounded-full border border-line px-7 py-3.5 text-sm font-semibold transition-colors hover:border-accent hover:text-accent">
+            <Download className="size-4" aria-hidden="true" /> {site.resume.label}
+          </a>
           {quoteHref && (
             <a href={quoteHref} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-full bg-accent px-7 py-3.5 text-sm font-semibold text-black transition-transform hover:scale-[1.04]">
               Request a quote <ArrowUpRight className="size-4" aria-hidden="true" />
@@ -53,7 +66,7 @@ export function Contact() {
             </a>
           )}
           {visibleSocials
-            .filter((s) => s.label !== "WhatsApp")
+            .filter((s) => s.label !== "WhatsApp" && s.label !== "LinkedIn")
             .map((s) => (
               <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-muted hover:text-accent">
                 {s.label} <ArrowUpRight className="size-4" aria-hidden="true" />

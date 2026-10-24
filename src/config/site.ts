@@ -25,6 +25,8 @@ export const site = {
    * until then "Hire me" scrolls to the contact form.
    */
   servicesUrl: (process.env.NEXT_PUBLIC_SERVICES_URL ?? "").replace(/\/$/, ""),
+  /** Resume PDF in /public. Replace the file (same name) to update it everywhere. */
+  resume: { file: "/Yaswanth-Amasa-Resume.pdf", label: "Download Resume" },
   /** Shown under the photo */
   location: "Ahmedabad, India",
 
@@ -72,7 +74,7 @@ export const site = {
    * so fill in only the ones you really use.
    */
   socials: [
-    { label: "LinkedIn", href: "" },
+    { label: "LinkedIn", href: "https://www.linkedin.com/in/yaswanth-amasa-6894ab434" },
     { label: "GitHub", href: "" },
     { label: "WhatsApp", href: "https://wa.me/918919674214" },
   ],
@@ -83,6 +85,7 @@ export const site = {
     { label: "Expertise", href: "#expertise" },
     { label: "Projects", href: "#projects" },
     { label: "Process", href: "#process" },
+    { label: "Resume", href: "/resume" },
     { label: "Contact", href: "#contact" },
   ],
 

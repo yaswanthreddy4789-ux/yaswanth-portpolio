@@ -1,5 +1,5 @@
-﻿/**
- * CONTENT â€” About, services, process, principles, testimonials, achievements.
+/**
+ * CONTENT — About, experience, process, principles, testimonials, achievements.
  */
 
 export type AboutBlock = { id: string; label: string; title: string; body: string; placeholder?: boolean };
@@ -70,24 +70,24 @@ export const principles = [
 ];
 
 /**
- * TESTIMONIALS â€” add ONLY real, permitted quotes. While this list is empty the
+ * TESTIMONIALS — add ONLY real, permitted quotes. While this list is empty the
  * section is hidden. Never add invented reviews, ratings or client logos.
  */
 export type Testimonial = { quote: string; name: string; role?: string; company?: string };
 export const testimonials: Testimonial[] = [];
 
-/** ACHIEVEMENTS / CERTIFICATIONS â€” real ones only. Empty = section hidden. */
+/** ACHIEVEMENTS / CERTIFICATIONS — real ones only. Empty = section hidden. */
 export type Achievement = { title: string; issuer?: string; year?: string };
 export const achievements: Achievement[] = [];
 
-/** EXPERIENCE & EDUCATION â€” taken from your resume. Edit freely. */
+/** EXPERIENCE & EDUCATION — taken from your resume. Edit freely. */
 export const experience = {
   roles: [
     {
       title: "Web Developer",
       company: "Syndell Technologies",
       place: "Ahmedabad, India",
-      period: "May 2023 â€“ Present",
+      period: "May 2023 – Present",
       points: [
         "Build, customize and maintain WordPress websites end to end, from theme and UI implementation to custom functionality, database work and performance.",
         "Develop custom WordPress plugins and themes to client requirements, extending core functionality beyond off-the-shelf solutions.",

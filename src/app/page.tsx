@@ -1,4 +1,4 @@
-import { site } from "@/config/site";
+import { site, visibleSocials } from "@/config/site";
 import { Preloader } from "@/components/Preloader";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
@@ -21,6 +21,7 @@ export default function Home() {
     "@type": "Person",
     name: site.name,
     jobTitle: site.title,
+    sameAs: visibleSocials.filter((s) => s.label !== "WhatsApp").map((s) => s.href),
     url: site.url,
     description: site.seo.description,
   };
